@@ -40,6 +40,9 @@ protected:
 	//Allows character to stop spirting
 	void StopSprinting();
 
+	//Allows character to pick up item from world
+	void PickupItem();
+
 	/** Called for forwards/backward input */
 	void MoveForward(float Value);
 
@@ -63,6 +66,9 @@ protected:
 
 	/** Handler for when a touch input stops. */
 	void TouchStopped(ETouchIndex::Type FingerIndex, FVector Location);
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Items")
+	bool isOverlappingItem;
 
 protected:
 	// APawn interface

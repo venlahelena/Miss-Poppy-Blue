@@ -43,6 +43,9 @@ AMissPBCharacter::AMissPBCharacter()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
+	isOverlappingItem = false;
+	
+
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 }
@@ -59,6 +62,8 @@ void AMissPBCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerIn
 
 	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &AMissPBCharacter::Sprint);
 	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &AMissPBCharacter::StopSprinting);
+
+	PlayerInputComponent->BindAction("Pickup", IE_Released, this, &AMissPBCharacter::PickupItem);
 
 	PlayerInputComponent->BindAxis("MoveForward", this, &AMissPBCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AMissPBCharacter::MoveRight);
@@ -155,3 +160,12 @@ void AMissPBCharacter::StopSprinting()
 	//isSprinting = false;
 	GetCharacterMovement()->MaxWalkSpeed = 600.0f;
 }
+
+void AMissPBCharacter::PickupItem()
+{
+	if (isOverlappingItem)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Picked up item!"));
+	}
+}
+
