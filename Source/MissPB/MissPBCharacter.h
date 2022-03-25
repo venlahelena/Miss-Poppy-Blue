@@ -1,10 +1,19 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #pragma once
-
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "DefaultItem.h"
 #include "MissPBCharacter.generated.h"
+
+USTRUCT(BlueprintType)
+struct FInventory
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<ADefaultItem*> itemList;
+};
 
 UCLASS(config=Game)
 class AMissPBCharacter : public ACharacter
@@ -49,6 +58,10 @@ protected:
 	/** Called for side to side input */
 	void MoveRight(float Value);
 
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	void AddToInventory(ADefaultItem* _item);
+
+
 	/** 
 	 * Called via input to turn at a given rate. 
 	 * @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
@@ -69,6 +82,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Items")
 	bool isOverlappingItem;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
+	FInventory inventory;
 
 protected:
 	// APawn interface

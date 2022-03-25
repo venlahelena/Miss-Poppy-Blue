@@ -169,3 +169,8 @@ void AMissPBCharacter::PickupItem()
 	}
 }
 
+void AMissPBCharacter::AddToInventory(ADefaultItem* _item)
+{
+	inventory.itemList.Add(_item);
+}
+
